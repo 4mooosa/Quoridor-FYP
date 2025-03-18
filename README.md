@@ -1,1 +1,1 @@
-# Quoridor
+# Quoridor with AI Opponent
