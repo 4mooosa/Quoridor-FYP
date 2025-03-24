@@ -1,5 +1,7 @@
 class Quoridor {
     constructor() {
-        this.board = Board();
+        this.board = new Board();
     }
 }
+
+game = new Quoridor()
