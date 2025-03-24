@@ -1,21 +1,22 @@
 class Board {
     constructor(boardSize) {
         this.boardSize = boardSize;
-        this.board = this.createBoard();
+        this.board = this.createBoard(this.boardSize);
         
         
-
         console.log(`Hello`)
     }
 
-    createBoard() {
-        this.board = new Array(this.boardSize);
+    createBoard(boardSize) {
+        board = [];
 
         for(var i = 0; i < this.boardSize; i++) {
-            this.board[i] = new Array(9);
+            row = [];
+            for(var i = 0; i < this.boardSize; i++) {
+                row.push(0);
+            }
+            board.push(row);
         }
-
-        this.board[0][0] = new Cell();
-        console.log(this.board[0][0]);
+        return board;
     }
 }
