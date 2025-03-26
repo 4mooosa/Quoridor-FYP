@@ -93,6 +93,48 @@ class Board {
             "left": [0, -1, this.westWalls],
             "right": [0, 1, this.eastWalls]
         };
+
+        let [dx, dy, wallMatrix] = moves[direction];
+
+        let newX = x + dx;
+        let newY = y + dy;
+
+        // Opponent collision handling (Jump or Side-step)
+        if (newX === oppX && newY === oppY) {
+            let jumpX = newX + dx;
+            let jumpY = newY + dy;
+
+            // Direct jump if no wall
+            if (jumpX >= 0 && jumpX < this.boardSize && jumpY >= 0 && jumpY < this.boardSize && wallMatrix[newX][newY] === 0) {
+                newX = jumpX;
+                newY = jumpY;
+            } else {
+                // Side-step if direct jump is blocked
+                if (direction === "up" || direction === "down") {
+                    if (newY - 1 >= 0 && this.westWalls[newX][newY] === 0) {
+                        newY -= 1;
+                    } else if (newY + 1 < this.boardSize && this.eastWalls[newX][newY] === 0) {
+                        newY += 1;
+                    }
+                } else {
+                    if (newX - 1 >= 0 && this.northWalls[newX][newY] === 0) {
+                        newX -= 1;
+                    } else if (newX + 1 < this.boardSize && this.southWalls[newX][newY] === 0) {
+                        newX += 1;
+                    }
+                }
+            }
+        }
+
+        // Update player position
+        if (player === 1) {
+            this.player1 = [newX, newY];
+        } else {
+            this.player2 = [newX, newY];
+        }
+
+        console.log(`Player ${player} moved to [${newX}, ${newY}]`);
+        return true;
     }
 
     canPlaceWall(x, y, orientation) {
