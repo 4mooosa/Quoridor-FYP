@@ -60,11 +60,11 @@ class Board {
             } else {
                 // If direct jump is blocked then side-step.
                 if (direction === "up" || direction === "down") {
-                    return (newY - 1 >= 0 && this.westWalls[newX][newY] === 0) ||
-                           (newY + 1 < this.boardSize && this.eastWalls[newX][newY] === 0);
+                    return (newY - 1 >= 0 && this.walls.west[newX][newY] === 0) ||
+                           (newY + 1 < this.boardSize && this.walls.east[newX][newY] === 0);
                 } else {
-                    return (newX - 1 >= 0 && this.northWalls[newX][newY] === 0) ||
-                           (newX + 1 < this.boardSize && this.southWalls[newX][newY] === 0);
+                    return (newX - 1 >= 0 && this.walls.north[newX][newY] === 0) ||
+                           (newX + 1 < this.boardSize && this.walls.south[newX][newY] === 0);
                 }
             }
         }
@@ -88,10 +88,10 @@ class Board {
 
         // Define movement directions.
         const moves = {
-            "up": [-1, 0, this.northWalls],
-            "down": [1, 0, this.southWalls],
-            "left": [0, -1, this.westWalls],
-            "right": [0, 1, this.eastWalls]
+            "up": [-1, 0, this.walls.north],
+            "down": [1, 0, this.walls.south],
+            "left": [0, -1, this.walls.west],
+            "right": [0, 1, this.walls.east]
         };
 
         let [dx, dy, wallMatrix] = moves[direction];
@@ -111,15 +111,15 @@ class Board {
             } else {
                 // Side-step if direct jump is blocked
                 if (direction === "up" || direction === "down") {
-                    if (newY - 1 >= 0 && this.westWalls[newX][newY] === 0) {
+                    if (newY - 1 >= 0 && this.walls.west[newX][newY] === 0) {
                         newY -= 1;
-                    } else if (newY + 1 < this.boardSize && this.eastWalls[newX][newY] === 0) {
+                    } else if (newY + 1 < this.boardSize && this.walls.east[newX][newY] === 0) {
                         newY += 1;
                     }
                 } else {
-                    if (newX - 1 >= 0 && this.northWalls[newX][newY] === 0) {
+                    if (newX - 1 >= 0 && this.walls.north[newX][newY] === 0) {
                         newX -= 1;
-                    } else if (newX + 1 < this.boardSize && this.southWalls[newX][newY] === 0) {
+                    } else if (newX + 1 < this.boardSize && this.walls.south[newX][newY] === 0) {
                         newX += 1;
                     }
                 }

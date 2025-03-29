@@ -5,3 +5,5 @@ class Quoridor {
 }
 
 game = new Quoridor()
+
+game
